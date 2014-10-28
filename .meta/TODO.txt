@@ -1,0 +1,6 @@
+v a0.1
+ - Add mobile support
+ - Add support for keyboard input
+ - Add scientific options
+ - Add clear, backspace, delete and other similar options
+ - Allow to navigate through equitation
