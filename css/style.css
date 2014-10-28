@@ -37,10 +37,15 @@ table {
 
 .lastEquitation {
 	width: 404px; /* Same as numberField */
-	height: 30px;
+	height: 20px;
+	font-family: 'Open Sans';
+	font-size: 0.9375em;
+	font-weight: 600;
+	color: #949494;
+	vertical-align: text-bottom;
 	text-align: right;
 	margin: 0 auto;
-	margin-bottom: 5px;
+	margin-top: 13px;
 }
 
 input[type="button"] {

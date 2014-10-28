@@ -20,7 +20,7 @@
 		<div id="useless_header"><h1>Calculator</h1></div>
 		<div id="wrapper">
 			<main id="calculator">
-				<div class="lastEquitation">Hello test test</div>
+				<div class="lastEquitation"></div>
 				<input class="numberField" type="text" readonly />
 				<?php
 					$width = 4;

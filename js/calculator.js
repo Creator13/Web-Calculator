@@ -49,6 +49,9 @@ function calculate(numbers, operators) {
 		else if (operators[i] === '-') {
 			total -= numbers[i + 1];
 		}
+		else {
+			throw 'Found unknown character in operator array: ' + operators[i];
+		}
 	}
 	
 	showResult(total);
@@ -56,7 +59,16 @@ function calculate(numbers, operators) {
 }
 
 function showResult(result) {
+	showingResult = true;
+	console.log(result);
+	
+	//Obtain DOM objects
 	var equitationDiv = $('.lastEquitation');
+	var numField = $('.numberField');
+	
+	//Put the equitation in the lastEquitation field
+	equitationDiv.text(numField.val() + " =");
+	numField.val(result);
 }
 
 //Init vars
@@ -68,6 +80,7 @@ var numbers = [], operators = [];
 var lastButtonType;
 var redundantString = '';
 var dotUsed = false;
+var showingResult = false;
 
 //Define action for normal button click
 $('.button_standard').click(function() {
