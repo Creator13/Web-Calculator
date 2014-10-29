@@ -46,6 +46,11 @@ table {
 	text-align: right;
 	margin: 0 auto;
 	margin-top: 13px;
+	-ms-user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	user-select: none;
+	cursor: default;
 }
 
 input[type="button"] {
