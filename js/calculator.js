@@ -82,7 +82,9 @@ var redundantString = '';
 var dotUsed = false;
 var showingResult = false;
 
-//Define action for normal button click
+//-------------//
+//Number Action//
+//-------------//
 $('.button_standard').click(function() {
 	var nf = $('.numberField');
 	
@@ -107,8 +109,15 @@ $('.button_standard').click(function() {
 		nf.val(nf.val() + $(this).val());
 	}
 	else if (lastButtonType == Types.equals) {
-		//werid things
-		//start new calculation
+		if (!showingResult) {
+			throw 'Invalid state exception';
+		}
+		
+		$('.lastEquitation').text($('.lastEquitation').text() + ' ' + nf.val());
+		nf.val('');
+		
+		nf.val(nf.val() + $(this).val());
+		
 	}
 	else {
 		//Error
@@ -117,10 +126,19 @@ $('.button_standard').click(function() {
 	lastButtonType = Types.number;
 });
 
+//---------------//
+//Operator Action//
+//---------------//
 $('.button_operator').click(function() {
-	if (lastButtonType === undefined || lastButtonType == Types.operator || lastButtonType == Types.equals) {
-		//Invalid: can't end with these Types of characters.
+	if (lastButtonType === undefined) {
+		//Invalid: There must be a number in the beginning
 		return;
+	}
+	else if (lastButtonType == Types.operator) {
+		//Code to change last operator
+	}
+	else if (lastButtonType == Types.equals) {
+		//Code to obtain number and start a new calculation with it as a beginning number
 	}
 	else if (lastButtonType == Types.number) {
 		var nf = $('.numberField');
@@ -146,6 +164,9 @@ $('.button_operator').click(function() {
 	
 });
 
+//-------------//
+//Equals Action//
+//-------------//
 $('.button_equals').click(function() {
 	if (lastButtonType === undefined || lastButtonType == Types.operator || lastButtonType == Types.equals) {
 		//Invalid: can't end with these Types of characters.
@@ -168,6 +189,10 @@ $('.button_equals').click(function() {
 	dotUsed = false;
 	
 	calculate(numbers, operators);
+	
+	//Clear the arrays
+	numbers = [];
+	operators = [];
 	
 });
 
