@@ -1,3 +1,5 @@
+//This script requires JQuery
+
 //Global functions
 function calculate(numbers, operators) {
 	if (! (numbers instanceof Array) || ! (operators instanceof Array)) {
@@ -60,7 +62,7 @@ function calculate(numbers, operators) {
 
 function showResult(result) {
 	showingResult = true;
-	console.log(result);
+	console.log('Answer: ' + result);
 	
 	//Obtain DOM objects
 	var equitationDiv = $('.lastEquitation');
@@ -69,6 +71,22 @@ function showResult(result) {
 	//Put the equitation in the lastEquitation field
 	equitationDiv.text(numField.val() + " =");
 	numField.val(result);
+}
+
+function clearFieldForNewCalc() {
+	var nf = $('.numberField');
+	
+	if (!showingResult) {
+		throw 'Invalid state exception';
+	}
+	
+	$('.lastEquitation').text($('.lastEquitation').text() + ' ' + nf.val());
+	nf.val('');
+}
+
+function clearArrays() {
+	numbers = [];
+	operators = [];
 }
 
 //Init vars
@@ -109,12 +127,7 @@ $('.button_standard').click(function() {
 		nf.val(nf.val() + $(this).val());
 	}
 	else if (lastButtonType == Types.equals) {
-		if (!showingResult) {
-			throw 'Invalid state exception';
-		}
-		
-		$('.lastEquitation').text($('.lastEquitation').text() + ' ' + nf.val());
-		nf.val('');
+		clearFieldForNewCalc();
 		
 		nf.val(nf.val() + $(this).val());
 		
@@ -191,8 +204,25 @@ $('.button_equals').click(function() {
 	calculate(numbers, operators);
 	
 	//Clear the arrays
-	numbers = [];
-	operators = [];
+	clearArrays();
 	
 });
 
+//--------------//
+//Remove Actions//
+//--------------//
+//CLEAR
+$('#button_clear').click(function() {
+	var nf = $('.numberField');
+	
+	if (lastButtonType == Types.equals) {
+		clearFieldForNewCalc();
+	}
+	else {
+		nf.val('');
+	}
+	
+	//Reset everything
+	lastButtonType = undefined;
+	clearArrays();
+});

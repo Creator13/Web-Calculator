@@ -23,38 +23,53 @@
 				<div class="lastEquitation" unselectable="on"></div>
 				<input class="numberField" type="text" readonly />
 				<?php
-					$width = 4;
-					$height = 4;
-					$buttonChars = array('7', '8', '9', '&divide;', '4', '5', '6', '&times;', '3', '2', '1', '-', '.', '0', '=', '+');
-					
-					if (count($buttonChars) != ($width * $height)) {
-						die("FATAL ERROR: array size doesn't match table size");
-					} 
+  					$buttonChars = array(
+						array('&larr;', 'C', 'AC'), 
+						array('7', '8', '9', '&divide;'), 
+						array('4', '5', '6', '&times;'), 
+						array('3', '2', '1', '-'), 
+						array('.', '0', '=', '+')
+					);
 					
 					echo '<table class="buttonTable">';
-					$i = 0;
-					for ($row = 0; $row < $height; $row++) {
+					
+					for ($row = 0; $row < count($buttonChars); $row++) {
 						echo '<tr>';
-						for ($col = 0; $col < $width; $col++) {
+						for ($col = 0; $col < count($buttonChars[$row]); $col++) {
 							$class = 'button_standard';
-							if ($buttonChars[$i] == '=') {
+							$id = null;
+							if ($buttonChars[$row][$col] == '=') {
 								$class = 'button_equals';
 							}
-							elseif ($buttonChars[$i] == '&divide;' || $buttonChars[$i] == '&times;' || $buttonChars[$i] == '-' || $buttonChars[$i] == '+') {
+							elseif ($buttonChars[$row][$col] == '&divide;' || $buttonChars[$row][$col] == '&times;' || $buttonChars[$row][$col] == '-' || $buttonChars[$row][$col] == '+') {
 								$class = 'button_operator';
 							}
+							elseif ($buttonChars[$row][$col] == '&larr;') {
+								$id = 'button_backspace';
+								$class = 'button_remove';
+							}
+							elseif ($buttonChars[$row][$col] == 'C') {
+								$id = 'button_clear';
+								$class = 'button_remove';
+							}
+							elseif ($buttonChars[$row][$col] == 'AC') {
+								$id = 'button_clearAll';
+								$class = 'button_remove';
+							}
+							elseif ($buttonChars[$row][$col] == '.' || $buttonChars[$row][$col] == ',') {
+								$id = 'button_dot';
+							}
 							
-							if ($buttonChars[$i] == '.' || $buttonChars[$i] == ',') {
-								echo "<td><input class=\"$class\" id=\"button_dot\" type=\"button\" value=\"$buttonChars[$i]\"></td>";
+							if ($id != null) {
+								echo '<td><input class="' . $class . '" id="' . $id . '" type="button" value="' . $buttonChars[$row][$col] . '"></td>';
 							}
 							else {
-								echo "<td><input class=\"$class\" type=\"button\" value=\"$buttonChars[$i]\"></td>";
+								echo '<td><input class="' . $class . '" type="button" value="' . $buttonChars[$row][$col] . '"></td>';
 							}
-							$i++;
 						}
 						echo '</tr>';
 					}
-					echo '</table>';
+					echo '</table>'
 				?>
 				
 			</main>
